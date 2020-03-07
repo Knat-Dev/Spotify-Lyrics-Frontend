@@ -4,6 +4,11 @@ import '../App.css';
 import querystring from 'query-string';
 import Lyrics from './Lyrics';
 import Header from './layout/Header';
+// let backened = 'https://spotify-app-1.herokuapp.com';
+let backened = 'http://localhost:8888';
+let frontend = 'http://localhost:3000';
+// let frontend = 'https://spotify-lyrics-83aca.firebaseapp.com';
+
 export class Spotify extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +51,7 @@ export class Spotify extends Component {
       if (this.state.refresh_token)
         axios
           .get(
-            `http://localhost:8888/refresh_token?refresh_token=${this.state.refresh_token}`
+            `${backened}/refresh_token?refresh_token=${this.state.refresh_token}`
           )
           .then(res => {
             console.log(res);
@@ -118,7 +123,7 @@ export class Spotify extends Component {
         <div className="h-100 container">
           {!this.state.access_token ? (
             <div className="row justify-content-center h-100 align-items-center">
-              <a href="http://localhost:8888/login">
+              <a href={`${frontend}/login`}>
                 <button className="button-class grow">
                   Login With Spotify
                 </button>

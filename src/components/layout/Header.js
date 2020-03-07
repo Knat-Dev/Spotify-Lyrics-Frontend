@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Header(props) {
-  let url = 'http://localhost:3000';
+  //   let frontend = 'https://spotify-lyrics-83aca.firebaseapp.com';
+  let frontend = 'http://localhost:3000';
   const [user, setUser] = useState({
     display_name: '',
     url: '',
@@ -33,7 +34,7 @@ export default function Header(props) {
     <nav className="mb-1 navbar navbar-expand-lg navbar-dark secondary-color lighten-1">
       <a
         className="navbar-brand"
-        href={`${url}?access_token=${props.access_token}&refresh_token=${props.refresh_token}`}
+        href={`${frontend}/?access_token=${props.access_token}&refresh_token=${props.refresh_token}`}
       >
         <i className="fab fa-spotify"></i>Spotify Lyrics Fetcher
       </a>

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function Lyrics(props) {
+  // let backened = 'https://spotify-app-1.herokuapp.com';
+  let backened = 'http://localhost:8888';
+
   const [lyrics, setLyrics] = useState(['Loading...']);
 
   useEffect(() => {
@@ -11,7 +14,7 @@ function Lyrics(props) {
     async function getLyrics() {
       if (props.songChange) {
         await axios
-          .get(`http://localhost:8888/${props.artistName}/${song}`)
+          .get(`${backened}/${props.artistName}/${song}`)
           .then(res => {
             let lyrics = res.data.lyrics;
             setLyrics(lyrics);
