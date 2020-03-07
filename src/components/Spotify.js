@@ -20,7 +20,8 @@ export class Spotify extends Component {
         time_left: 0,
         current_time: 0,
         lyrics: [],
-        songChange: false
+        songChange: false,
+        showTimeLeft: true
       }
     };
   }
@@ -128,20 +129,47 @@ export class Spotify extends Component {
               <div className="col-12">
                 <h1>Currently Playing:</h1>
 
-                <p>Song Name: {this.state.currently.song}</p>
-                <p>Artist Name: {this.state.currently.artist}</p>
-                <p>
-                  Current: {this.printTime(this.state.currently.current_time)} /{' '}
-                  {this.printTime(this.state.currently.duration)} /{' '}
-                  {this.printTime(this.state.currently.time_left)}
+                <p className="text-muted">
+                  {' - '}Song Name: {this.state.currently.song}
+                </p>
+                <p className="text-muted">
+                  {' - '}Artist Name: {this.state.currently.artist}
+                </p>
+                <p
+                  className="text-muted"
+                  onClick={() => {
+                    this.setState({
+                      ...this.state,
+                      currently: {
+                        ...this.state.currently,
+                        showTimeLeft: !this.state.currently.showTimeLeft
+                      }
+                    });
+                  }}
+                >
+                  {' - '}Currently:{' '}
+                  {this.state.currently.showTimeLeft
+                    ? this.printTime(this.state.currently.time_left)
+                    : this.printTime(this.state.currently.current_time) +
+                      '/' +
+                      this.printTime(this.state.currently.duration)}
                 </p>
               </div>
-              <div className="row align-items-start">
-                <img
-                  className="col-6 img-fluid p-4"
-                  src={this.state.currently.image}
-                  alt=""
-                />
+              <div className="row align-items-start justify-content-center">
+                <div className="col-lg-6 col-sm-8">
+                  <img
+                    className="img-fluid"
+                    src={this.state.currently.image}
+                    alt=""
+                  />
+                  <h3 className="mb-5 text-center text-muted">
+                    {this.state.currently.song !== 'None'
+                      ? this.state.currently.song +
+                        ' - ' +
+                        this.state.currently.artist
+                      : ''}
+                  </h3>
+                </div>
                 <Lyrics
                   songChange={this.state.currently.songChange}
                   songName={this.state.currently.song}
