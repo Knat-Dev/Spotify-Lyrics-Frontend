@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../App.css';
 import querystring from 'query-string';
 import Lyrics from './Lyrics';
+import Header from './layout/Header';
 export class Spotify extends Component {
   constructor(props) {
     super(props);
@@ -107,38 +108,49 @@ export class Spotify extends Component {
 
   render() {
     return (
-      <div className="h-100 container">
-        {!this.state.access_token ? (
-          <div className="row justify-content-center h-100 align-items-center">
-            <a href="http://localhost:8888/login">
-              <button className="button-class grow">Login With Spotify</button>
-            </a>
-          </div>
-        ) : (
-          <Fragment>
-            <div className="col-12">
-              <p>Song Name: {this.state.currently.song}</p>
-              <p>Artist Name: {this.state.currently.artist}</p>
-              <p>
-                Current: {this.printTime(this.state.currently.current_time)} /{' '}
-                {this.printTime(this.state.currently.duration)}
-              </p>
-              <p>Time Left: {this.printTime(this.state.currently.time_left)}</p>
+      <div>
+        <Header
+          access_token={this.state.access_token}
+          refresh_token={this.state.refresh_token}
+        />
+
+        <div className="h-100 container">
+          {!this.state.access_token ? (
+            <div className="row justify-content-center h-100 align-items-center">
+              <a href="http://localhost:8888/login">
+                <button className="button-class grow">
+                  Login With Spotify
+                </button>
+              </a>
             </div>
-            <div className="row align-items-start">
-              <img
-                className="col-6 img-fluid p-4"
-                src={this.state.currently.image}
-                alt=""
-              />
-              <Lyrics
-                songChange={this.state.currently.songChange}
-                songName={this.state.currently.song}
-                artistName={this.state.currently.artist}
-              />
-            </div>
-          </Fragment>
-        )}
+          ) : (
+            <Fragment>
+              <div className="col-12">
+                <h1>Currently Playing:</h1>
+
+                <p>Song Name: {this.state.currently.song}</p>
+                <p>Artist Name: {this.state.currently.artist}</p>
+                <p>
+                  Current: {this.printTime(this.state.currently.current_time)} /{' '}
+                  {this.printTime(this.state.currently.duration)} /{' '}
+                  {this.printTime(this.state.currently.time_left)}
+                </p>
+              </div>
+              <div className="row align-items-start">
+                <img
+                  className="col-6 img-fluid p-4"
+                  src={this.state.currently.image}
+                  alt=""
+                />
+                <Lyrics
+                  songChange={this.state.currently.songChange}
+                  songName={this.state.currently.song}
+                  artistName={this.state.currently.artist}
+                />
+              </div>
+            </Fragment>
+          )}
+        </div>
       </div>
     );
   }

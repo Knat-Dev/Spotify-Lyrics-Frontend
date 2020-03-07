@@ -24,7 +24,9 @@ function Lyrics(props) {
 
   return (
     <div className="p-4 text-center col-6">
-      <h1>{props.songName !== 'None' ? props.songName + "'s" : ''} Lyrics</h1>
+      <h1>
+        {props.artistName !== 'None' ? props.artistName + "'s" : ''} Lyrics
+      </h1>
       {lyrics.map((line, index) => {
         if (line.length > 0) return <p key={index}>{line}</p>;
         else return <br key={index}></br>;
